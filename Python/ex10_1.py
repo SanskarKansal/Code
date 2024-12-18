@@ -1,0 +1,23 @@
+x1=int(input("enter the x cordinate of 1: "))
+y1=int(input("enter the y cordinate of 1: "))
+x2=int(input("enter the x cordinate of 2: "))
+y2=int(input("enter the y cordinate of 2: "))
+x3=(x1+x2)/2
+y3=(y1+y2)/2
+import turtle
+a=turtle.Turtle()
+a.pensize(10)
+a.color("red")
+a.speed(1)
+a.up()
+a.goto(x1,y1)
+a.down()
+a.dot()
+a.color("blue")
+a.goto(x2,y2)
+a.color("green")
+a.dot()
+a.color("blue")
+a.goto(x3,y3)
+a.color("yellow")
+a.dot()
