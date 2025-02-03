@@ -18,15 +18,16 @@ void merge(int arr[],int p,int q, int r){
             i=i+1;}
         else{
             arr[k]=b[j];
-            j=j+1; }
+            j=j+1; 
         }
+    }
 }
 void mergesort(int arr[],int p, int r){
     if(p<r){
-      int q=(p+r)/2;
-     mergesort(arr,p,q);
-    mergesort(arr,q+1,r);
-    merge(arr,p,q,r);
+        int q=(p+r)/2;
+        mergesort(arr,p,q);
+        mergesort(arr,q+1,r);
+        merge(arr,p,q,r);
     }
 }
 int main()
