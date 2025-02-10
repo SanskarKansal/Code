@@ -62,12 +62,10 @@ int main() {
             while(start<=end){
                 int mid=(start+end)/2;
                 if(b[mid]-a[i]==a[i+1]){
-                    a[i]=b[mid]-a[i];
-              
+                    val=mid;
                     break;
                 }
-                if(b[mid]-a[i]<a[i+1]){
-                    a[i]=max(a[i],b[mid]-a[i]);
+                else if(b[mid]-a[i]<a[i+1]){
                     val=mid;
                     start=mid+1;
                 }
@@ -78,11 +76,16 @@ int main() {
             if(val!=-1 && a[i]>a[i+1]){
                 a[i]=b[val]-a[i];
             }
+            if(val !=-1 && b[val]-a[i]<=a[i+1] && b[val]-a[i]>a[i]){
+                a[i]=b[val]-a[i];
+            }
+            
             if(a[i]>a[i+1]){
                 cout<<"NO"<<endl;
                 check++;
                 break;
             }
+           
         }
         if(!check){
             cout<<"YES"<<endl;
