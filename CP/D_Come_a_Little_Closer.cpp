@@ -2,23 +2,14 @@
 using namespace std;
 
 #define fastIO ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define ll long long
 
-long long getArea(vector<pair<long long,long long>>& x, vector<pair<long long,long long>>& y, vector<pair<long long,long long>>& a, int Index) {
-    vector<long long> xs, ys;
-    for (int i = 0; i < a.size(); ++i) {
-        if (i == Index) continue;
-        xs.push_back(a[i].first);
-        ys.push_back(a[i].second);
-    }
-    long long minx = *min_element(xs.begin(), xs.end());
-    long long maxx = *max_element(xs.begin(), xs.end());
-    long long miny = *min_element(ys.begin(), ys.end());
-    long long maxy = *max_element(ys.begin(), ys.end());
-    long long val= (maxx - minx+1) * (maxy - miny+1);
-    if(val==a.size()){
-        return min((maxx - minx+2) * (maxy - miny+1),(maxx - minx+1) * (maxy - miny+2));
-    }
-    return val;
+int n;
+
+ll getArea(int mn_x, int mx_x, int mn_y, int mx_y) {
+	ll h = mx_x - mn_x + 1, w = mx_y - mn_y + 1;
+	if(h*w < n) return min((h+1)*w, h*(w+1));
+	return h*w;
 }
 
 int main() {
@@ -26,34 +17,36 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int n;
         cin >> n;
-        vector<pair<long long,long long>> a(n), x(n), y(n);
+        vector<pair<int, int>> x(n), y(n);
         for (int i = 0; i < n; i++) {
-            cin >> a[i].first >> a[i].second;
-            x[i] = {a[i].first, i};
-            y[i] = {a[i].second, i};
-        }
-
-        if (n <= 2) {
-            cout << 0 << endl;
-            continue;
+            int xi, yi;
+            cin >> xi >> yi;
+            x[i] = {xi, i};
+            y[i] = {yi, i};
         }
 
         sort(x.begin(), x.end());
         sort(y.begin(), y.end());
 
-        long long ans = LLONG_MAX;
+        ll ans = getArea(x[0].first, x[n-1].first, y[0].first, y[n-1].first);
 
-        ans = min(ans, getArea(x, y, a, x[n-1].second));
+        if (n == 1) {
+            cout << ans << '\n';
+            continue;
+        }
 
-        ans = min(ans, getArea(x, y, a, x[0].second));
+        set<int> indices = {x[0].second, x[n-1].second, y[0].second, y[n-1].second};
+        for (int i : indices) {
+            int mnx = x[0].second == i ? x[1].first : x[0].first;
+            int mxx = x[n-1].second == i ? x[n-2].first : x[n-1].first;
+            int mny = y[0].second == i ? y[1].first : y[0].first;
+            int mxy = y[n-1].second == i ? y[n-2].first : y[n-1].first;
 
-        ans = min(ans, getArea(x, y, a, y[n-1].second));
+            ans = min(ans, getArea(mnx, mxx, mny, mxy));
+        }
 
-        ans = min(ans, getArea(x, y, a, y[0].second));
-
-        cout << ans << endl;
+        cout << ans << '\n';
     }
     return 0;
 }
