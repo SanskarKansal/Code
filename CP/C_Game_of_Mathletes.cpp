@@ -27,6 +27,7 @@ int main(){
                 right--;
             }
         }
+        
         cout<<count<<endl;
     }
     return 0;
