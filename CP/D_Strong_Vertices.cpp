@@ -31,39 +31,42 @@ vector<bool> sieve(int n) {
     }
     return isPrime;
 }
-long long mod=998244353;
+
 int main() {
     fastIO;
     int t;
     cin >> t;
     while (t--) {
         // Code for each test case
-        string s;
-        cin>>s;
-        int n=s.length();
-        long long extra=0,opr=0,fac=1,choice=1;
-        for(int i=1;i<n;i++){
-            if(s[i]==s[i-1]){
-                extra++;
-            }
-            else{
-                opr+=extra;
-                extra++;
-                choice=(choice%mod * extra%mod)%mod;
-                extra=0;
-            }
+        int n;
+        cin>>n;
+        vector<long long>a(n);
+        vector<long long>b(n);
+        for(int i=0;i<n;i++){
+            cin>>a[i];
         }
-        if(extra>0){
-            opr+=extra;
-            extra++;
-            choice=(choice%mod * extra%mod)%mod;
-            extra=0;
+        for(int i=0;i<n;i++){
+            cin>>b[i];
         }
-        for(int i=1;i<=opr;i++){
-            fac=(fac%mod * i%mod)%mod;
+        vector<pair<long long ,long long>>val(n);
+        for(int i=0;i<n;i++){
+            val[i].first=a[i]-b[i];
+            val[i].second=i;
         }
-        choice=(choice%mod*fac%mod)%mod;
-        cout<<opr<<" "<<choice<<endl;
+        sort(val.begin(),val.end());
+        vector<long long>res;
+        res.push_back(val[n-1].second);
+        int i=n-2;
+        while(i>=0 && val[i].first==val[i+1].first){
+            res.push_back(val[i].second);
+            i--;
+        }
+        sort(res.begin(),res.end());
+        cout<<res.size()<<endl;
+        for( i=0;i<res.size();i++){
+            cout<<res[i]+1<<" ";
+        }
+        cout<<endl;
     }
     return 0;
 }
