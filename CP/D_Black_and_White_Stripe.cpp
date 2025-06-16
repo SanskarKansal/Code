@@ -37,34 +37,27 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int n;
-        cin>>n;
-        bool c=true;
-        vector<int>a(n);
-        for(int i=0;i<n;i++){
-            cin>>a[i];
-        }
-        map<int,int>mp;
-        for(int i=1;i<n;i++){
-            if(a[i]!=a[i-1]){
-                c=false;
-                break;
+        int n,k;
+        cin>>n>>k;
+        string s;
+        cin>>s;
+        int ans=0,c=0;
+        for(int i=0;i<k;i++){
+            if(s[i]=='W'){
+                c++;
             }
         }
-        if(c){
-            for(int i=0;i<n;i++){
-                if(i==0){
-                    cout<<n<<" ";
-                }
-                else{
-                    cout<<i<<" ";
-                }
+        ans=c;
+        for(int i=k;i<n;i++){
+            if(s[i]=='W'){
+                c++;
             }
-            cout<<endl;
+            if(s[i-k]=='W'){
+                c--;
+            }
+            ans=min(ans,c);
         }
-        else{
-            cout<<-1<<endl;
-        }
+        cout<<ans<<endl;
     }
     return 0;
 }

@@ -37,33 +37,43 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int n;
-        cin>>n;
-        bool c=true;
-        vector<int>a(n);
+        int n,m;
+        cin>>n>>m;
+        vector<int>a;
+        long long sum=0;
         for(int i=0;i<n;i++){
-            cin>>a[i];
-        }
-        map<int,int>mp;
-        for(int i=1;i<n;i++){
-            if(a[i]!=a[i-1]){
-                c=false;
-                break;
+            int num;
+            cin>>num;
+            long long count=0;
+            while(num>0 && num%10==0){
+                num/=10;
+                count++;
             }
-        }
-        if(c){
-            for(int i=0;i<n;i++){
-                if(i==0){
-                    cout<<n<<" ";
-                }
-                else{
-                    cout<<i<<" ";
-                }
+            if(count>0){
+                a.push_back(count);
             }
-            cout<<endl;
+            count=0;
+            while(num>0){
+                num/=10;
+                count++;
+            }
+            sum+=count;
+        }
+        if(sum>m){
+            cout<<"Sasha"<<endl;
         }
         else{
-            cout<<-1<<endl;
+            sort(a.begin(),a.end());
+            int l=a.size();
+            for(int i=a.size()-2;i>=0;i-=2){
+                sum+=a[i];
+            }
+            if(sum>m){
+                cout<<"Sasha"<<endl;
+            }
+            else{
+                cout<<"Anna"<<endl;
+            }
         }
     }
     return 0;

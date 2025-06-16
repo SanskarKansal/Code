@@ -39,32 +39,27 @@ int main() {
     while (t--) {
         int n;
         cin>>n;
-        bool c=true;
-        vector<int>a(n);
+        int s=INT_MAX;
+        int l=INT_MAX;
+        int ans=0;
         for(int i=0;i<n;i++){
-            cin>>a[i];
-        }
-        map<int,int>mp;
-        for(int i=1;i<n;i++){
-            if(a[i]!=a[i-1]){
-                c=false;
-                break;
+            int val;
+            cin>>val;
+            if(l<s){
+                swap(l,s);
+            }
+            if(val<=s){
+                s=val;
+            }
+            else if(val<=l){
+                l=val;
+            }
+            else{
+                ans++;
+                s=val;
             }
         }
-        if(c){
-            for(int i=0;i<n;i++){
-                if(i==0){
-                    cout<<n<<" ";
-                }
-                else{
-                    cout<<i<<" ";
-                }
-            }
-            cout<<endl;
-        }
-        else{
-            cout<<-1<<endl;
-        }
+        cout<<ans<<endl;
     }
     return 0;
 }
