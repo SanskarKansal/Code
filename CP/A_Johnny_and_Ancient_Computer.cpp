@@ -36,12 +36,15 @@ int main() {
     while (t--) {
         long long a, b;
         cin >> a >> b;
-        if (b < a) swap(a, b);
+        if (b < a){ 
+            swap(a, b);
+        }
         long long val = b / a;
         long long power = __builtin_ctzll(val);;
         if (b % a != 0 || ((val & (val - 1)) != 0)) {
             cout << -1 << endl;
-        } else {
+        }
+        else {
             cout << (power + 2) / 3 << endl;
         }
     }
